@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soham Dolui — Portfolio</title>
+  <meta name="description" content="Soham Dolui, Engineering Physics student at IIT Kharagpur building web, ML, and hardware projects.">
+  <meta name="theme-color" content="#060A12">
+  <link rel="icon" type="image/svg+xml" href="./Images/favicon.svg">
+  <link rel="apple-touch-icon" href="./Images/soham.png">
+  <meta property="og:title" content="Soham Dolui - Portfolio">
+  <meta property="og:description" content="Engineering Physics student at IIT Kharagpur building web, ML, and hardware projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./Images/soham.png">
+  <meta property="og:image:alt" content="Soham Dolui portfolio preview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Soham Dolui - Portfolio">
+  <meta name="twitter:description" content="Engineering Physics student at IIT Kharagpur building web, ML, and hardware projects.">
+  <meta name="twitter:image" content="./Images/soham.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div id="nav-logo">SD</div>
+    <ul id="nav-links">
+      <li><a href="#hero"     class="nav-link active">Home</a></li>
+      <li><a href="#about"    class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact"  class="nav-link">Contact</a></li>
+    </ul>
+    <button id="nav-hamburger" type="button" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu">
+    <ul>
+      <li><a href="#hero"     onclick="toggleMenu()" data-nav-index="01">Home</a></li>
+      <li><a href="#about"    onclick="toggleMenu()" data-nav-index="02">About</a></li>
+      <li><a href="#projects" onclick="toggleMenu()" data-nav-index="03">Projects</a></li>
+      <li><a href="#contact"  onclick="toggleMenu()" data-nav-index="04">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div id="hero-content">
+      <div id="hero-heading">
+        <div id="hero-name-wrap">
+          <p id="hero-greeting">Hello, I'm</p>
+          <h1 id="hero-name">Soham Dolui</h1>
+        </div>
+        <div id="hero-image-wrap">
+          <div id="nav-wheel-wrap">
+            <svg id="nav-wheel" viewBox="0 0 160 160">
+              <g id="wheel-slices"></g>
+              <g id="wheel-icons"></g>
+              <circle cx="80" cy="80" r="28" fill="none" stroke="rgba(42,109,217,0.2)" stroke-width="0.5"/>
+              <circle cx="80" cy="80" r="5" fill="rgba(42,109,217,0.5)" stroke="rgba(42,109,217,0.8)" stroke-width="0.5"/>
+            </svg>
+            <div id="wheel-tooltip">
+              <div id="wt-title"></div>
+              <div id="wt-desc"></div>
+            </div>
+          </div>
+          <a href="https://www.instagram.com/infamous_soham/" target="_blank" rel="noopener noreferrer" id="hero-image-link">
+          <img src="./Images/soham.png" alt="Profile Picture" id="hero-image">
+          </a>
+        </div>
+      </div>
+      <div id="hero-roles">
+        <span id="role-text"></span><span id="cursor">|</span>
+      </div>
+      <p id="hero-quote">"Jack of all trades, master of one — try me at any, I'll outrun."</p>
+      <div id="hero-btns">
+        <a href="#projects" class="btn-primary">View Work</a>
+        <a href="#contact"  class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+    <div id="scroll-hint">
+      <span>scroll</span>
+      <div id="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-tag">01 — About</div>
+      <div id="about-grid">
+        <div id="about-text">
+          <h2>Engineering the<br><span class="accent-green">intersection.</span></h2>
+          <p>First year Engineering Physics student at <span class="accent-blue">IIT Kharagpur</span>. I work at the crossroads of hardware and software — from digital circuits to full-stack applications.</p>
+          <p>I don't specialise in one thing. I build across everything, and I do it well.</p>
+          <div id="about-meta">
+            <div class="meta-item">
+              <span class="meta-label">Institute</span>
+              <span class="meta-value">IIT Kharagpur</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Branch</span>
+              <span class="meta-value">Engineering Physics</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Batch</span>
+              <span class="meta-value">2026 — 2030</span>
+            </div>
+          </div>
+        </div>
+        <div id="about-skills">
+          <div class="skills-group">
+            <p class="skills-label">// frontend</p>
+            <div class="tags">
+              <span class="tag tag-blue">HTML</span>
+              <span class="tag tag-blue">CSS</span>
+              <span class="tag tag-blue">JavaScript</span>
+              <span class="tag tag-blue">React</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <p class="skills-label">// backend</p>
+            <div class="tags">
+              <span class="tag tag-green">Node.js</span>
+              <span class="tag tag-green">Python</span>
+              <span class="tag tag-green">REST APIs</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <p class="skills-label">// AI / ML</p>
+            <div class="tags">
+              <span class="tag tag-purple">Machine Learning</span>
+              <span class="tag tag-purple">Data Science</span>
+              <span class="tag tag-purple">Neural Networks</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <p class="skills-label">// hardware</p>
+            <div class="tags">
+              <span class="tag tag-muted">Digital Electronics</span>
+              <span class="tag tag-muted">Circuit Design</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <p class="skills-label">// other</p>
+            <div class="tags">
+              <span class="tag tag-muted">DSA</span>
+              <span class="tag tag-muted">Git</span>
+              <span class="tag tag-muted">Vibe Coding</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-tag">02 — Projects</div>
+      <h2>Things I've <span class="accent-blue">built.</span></h2>
+      <div id="projects-grid">
+        <div class="projects-slider" style="--quantity: 4;">
+          <div class="project-card" style="--position: 1;" data-project-long="A deeper project walkthrough can live here: the problem, the design decisions, the implementation details, the tradeoffs, and the result. Replace this with metrics, screenshots, and a tight story once the project is finalized.">
+            <div class="project-number">01</div>
+            <h3 class="project-title">Project Name</h3>
+            <p class="project-desc">Short description of what this project does and why it matters. Keep it punchy — one or two sentences max.</p>
+            <div class="project-tags">
+              <span class="tag tag-blue">React</span>
+              <span class="tag tag-green">Node.js</span>
+              <span class="tag tag-muted">MongoDB</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">Live ↗</a>
+              <a href="#" class="project-link">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="project-card" style="--position: 2;" data-project-long="Use this expanded panel to explain the model, dataset, evaluation, and what made the build technically interesting. Good project writeups make the work feel real before someone even opens GitHub.">
+            <div class="project-number">02</div>
+            <h3 class="project-title">Project Name</h3>
+            <p class="project-desc">Yet to be Uploaded</p>
+            <div class="project-tags">
+              <span class="tag tag-purple">Python</span>
+              <span class="tag tag-purple">ML</span>
+              <span class="tag tag-muted">TensorFlow</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">Live ↗</a>
+              <a href="#" class="project-link">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="project-card" style="--position: 3;" data-project-long="This is a strong spot for hardware notes: circuit choices, constraints, debugging process, components used, and what you learned while making the system reliable.">
+            <div class="project-number">03</div>
+            <h3 class="project-title">Project Name</h3>
+            <p class="project-desc">Yet to be Uploaded</p>
+            <div class="project-tags">
+              <span class="tag tag-muted">C++</span>
+              <span class="tag tag-muted">Hardware</span>
+              <span class="tag tag-green">Arduino</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">Live ↗</a>
+              <a href="#" class="project-link">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="project-card" style="--position: 4;" data-project-long="Add the full story here: idea, stack, implementation, challenges, final outcome, and links to the demo or repository. Keep it specific and evidence-based.">
+            <div class="project-number">04</div>
+            <h3 class="project-title">Project Name</h3>
+            <p class="project-desc">Yet to be Uploaded</p>
+            <div class="project-tags">
+              <span class="tag tag-purple">Python</span>
+              <span class="tag tag-purple">ML</span>
+              <span class="tag tag-muted">TensorFlow</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">Live ↗</a>
+              <a href="#" class="project-link">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-nav" aria-label="Project navigation">
+          <button class="project-nav-btn" type="button" data-project-nav="prev" aria-label="Previous project">&lsaquo;</button>
+          <button class="project-nav-btn" type="button" data-project-nav="next" aria-label="Next project">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <div class="project-modal-backdrop" data-project-modal-close></div>
+    <article class="project-modal-panel">
+      <button class="project-modal-close" type="button" aria-label="Close project details" data-project-modal-close>&times;</button>
+      <div class="project-modal-copy">
+        <p id="project-modal-number"></p>
+        <h3 id="project-modal-title"></h3>
+        <p id="project-modal-desc"></p>
+        <div id="project-modal-tags"></div>
+      </div>
+      <div id="project-modal-gallery" class="project-modal-gallery"></div>
+    </article>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-tag">03 — Contact</div>
+      <h2>Let's <span class="accent-green">build</span> something <span id="contact-emoji" aria-hidden="true">
+        <span class="emoji-frame">&#128296;</span>
+        <span class="emoji-frame">&#129309;</span>
+        <span class="emoji-frame">&#9881;&#65039;</span>
+        <span class="emoji-frame">&#128161;</span>
+        <span class="emoji-frame">&#128640;</span>
+        <span class="emoji-frame">&#129513;</span>
+        <span class="emoji-frame">&#128225;</span>
+        <span class="emoji-frame">&#10024;</span>
+      </span></h2>
+      <p id="contact-sub">Curious about thoughtful problems, useful systems, and people who like building carefully.</p>
+      <div id="contact-status">
+        <span id="status-dot"></span>
+        <span>Open to collabs / internships / cool builds</span>
+      </div>
+      <div id="contact-links">
+        <a href="mailto:soham.pfl@gmail.com" class="contact-btn" id="copy-email" data-email="soham.pfl@gmail.com">
+          <span class="contact-icon">✉</span> Email
+        </a>
+        <a href="https://www.linkedin.com/in/soham-dolui-a00b73411" target="_blank" class="contact-btn">
+          <span class="contact-icon"><img src="./Images/in-logo/in-logo/LI-In-Bug.png" alt="in"></span> LinkedIn
+        </a>
+        <a href="https://github.com/sohamdolui008" target="_blank" class="contact-btn">
+          <span class="contact-icon"><img src="./Images/GitHub_Logos/GitHub Logos/PNG/GitHub_Invertocat_White.png" alt="gh"></span> GitHub
+        </a>
+        <a href="https://docs.google.com/document/d/1MbNAKpB_-azJNnZaVLTbRjfWknCojtJ7O9JFaquBjow/edit?usp=sharing" target="_blank" class="contact-btn">
+          <span class="contact-icon">📄</span> Resume
+        </a>
+      </div>
+      <div id="contact-terminal">
+        <span>soham@portfolio:~$</span>
+        <span>lets_build</span>
+        <span id="terminal-cursor"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built by Soham Dolui · IIT Kharagpur · 2026</p>
+    <p class="footer-sub">Designed to signal. Built to last.</p>
+  </footer>
+
+  <div id="pc-experience-note" role="status">
+    <span>Switch to a PC for a better experience</span>
+    <button id="pc-note-close" type="button" aria-label="Close PC experience note">&times;</button>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
