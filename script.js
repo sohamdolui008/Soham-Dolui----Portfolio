@@ -28,7 +28,7 @@ function updateActiveLink() {
     { label: 'Projects', desc: 'Things I\'ve shipped.\nCode meets hardware.',       color: '#7F77DD', stroke: '#534AB7', target: '#projects' },
     { label: 'Skills',   desc: 'Frontend to ML.\nFull-spectrum builder.',           color: '#2A6DD9', stroke: '#1a4da0', target: '#about'    },
     { label: 'Contact',  desc: 'Let\'s build something.\nOpen to ideas.',           color: '#1D9E75', stroke: '#0f6e56', target: '#contact'  },
-    { label: 'Resume',   desc: 'My work on paper.\nDownload & explore.',            color: '#7F77DD', stroke: '#534AB7', target: '#contact'  },
+    { label: 'Resume',   desc: 'My work on paper.\nDownload & explore.',            color: '#7F77DD', stroke: '#534AB7', target: '#contact', highlight: '#resume-btn' },
   ]
 
   const icons = {
@@ -164,6 +164,16 @@ function updateActiveLink() {
 
     path.addEventListener('click', () => {
       document.querySelector(s.target)?.scrollIntoView({ behavior: 'smooth' })
+
+      if (s.highlight) {
+        const button = document.querySelector(s.highlight)
+        window.setTimeout(() => {
+          button?.classList.remove('wheel-highlight')
+          button?.offsetHeight
+          button?.classList.add('wheel-highlight')
+          window.setTimeout(() => button?.classList.remove('wheel-highlight'), 1600)
+        }, 520)
+      }
     })
   })
 })();
@@ -543,6 +553,164 @@ revealEls.forEach(el => {
   })
 })();
 
+/* ── PROJECT CONTENT LOADER ───────────────────────────── */
+(function(){
+  const slider = document.querySelector('#projects-grid .projects-slider')
+  if (!slider) return
+
+  const PROJECT_STORAGE_KEY = 'portfolioProjects'
+  const fallbackTagClasses = ['tag-blue', 'tag-green', 'tag-purple', 'tag-muted']
+
+  const readSavedProjects = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PROJECT_STORAGE_KEY) || '[]')
+      return Array.isArray(saved) ? saved : []
+    } catch {
+      return []
+    }
+  }
+
+  const appendTextBlock = (parent, text) => {
+    String(text || '')
+      .split(/\n{2,}/)
+      .map(block => block.trim())
+      .filter(Boolean)
+      .forEach(block => {
+        const paragraph = document.createElement('p')
+        paragraph.textContent = block
+        parent.appendChild(paragraph)
+      })
+  }
+
+  const createTag = (label, index) => {
+    const tag = document.createElement('span')
+    tag.className = `tag ${fallbackTagClasses[index % fallbackTagClasses.length]}`
+    tag.textContent = label
+    return tag
+  }
+
+  const createProjectCard = (project, index) => {
+    const card = document.createElement('div')
+    const mediaItems = Array.isArray(project.media) ? project.media.filter(item => item && (item.title || item.src || item.href)) : []
+    const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : []
+    const links = Array.isArray(project.links) ? project.links.filter(link => link && link.href && link.label) : []
+
+    card.className = mediaItems.length ? 'project-card media-project-card' : 'project-card'
+    card.style.setProperty('--position', index + 1)
+    card.dataset.projectLong = project.longDescription || project.description || ''
+
+    const number = document.createElement('div')
+    number.className = 'project-number'
+    number.textContent = String(index + 1).padStart(2, '0')
+
+    const title = document.createElement('h3')
+    title.className = 'project-title'
+    title.textContent = project.title || 'Untitled Project'
+
+    const desc = document.createElement('p')
+    desc.className = 'project-desc'
+    desc.textContent = project.description || 'Project details coming soon.'
+
+    const tagList = document.createElement('div')
+    tagList.className = 'project-tags'
+    tags.forEach((tag, tagIndex) => tagList.appendChild(createTag(tag, tagIndex)))
+
+    const linkList = document.createElement('div')
+    linkList.className = 'project-links'
+    links.forEach(link => {
+      const anchor = document.createElement('a')
+      anchor.className = 'project-link'
+      anchor.href = link.href
+      anchor.target = '_blank'
+      anchor.rel = 'noopener noreferrer'
+      anchor.textContent = `${link.label} ↗`
+      linkList.appendChild(anchor)
+    })
+
+    const detailCopy = document.createElement('div')
+    detailCopy.className = 'project-long-copy'
+    detailCopy.hidden = true
+    appendTextBlock(detailCopy, project.longDescription || project.description)
+
+    if (Array.isArray(project.highlights) && project.highlights.length) {
+      const list = document.createElement('ul')
+      project.highlights.filter(Boolean).forEach(highlight => {
+        const item = document.createElement('li')
+        item.textContent = highlight
+        list.appendChild(item)
+      })
+      detailCopy.appendChild(list)
+    }
+
+    card.append(number, title, desc, tagList, linkList, detailCopy)
+
+    if (mediaItems.length) {
+      const mediaList = document.createElement('div')
+      mediaList.className = 'project-media-list'
+      mediaList.hidden = true
+
+      mediaItems.forEach(media => {
+        const article = document.createElement('article')
+        article.className = 'media-item'
+
+        const thumb = document.createElement('a')
+        thumb.className = 'media-thumb'
+        thumb.href = media.href || media.src || '#'
+        thumb.target = '_blank'
+        thumb.rel = 'noopener noreferrer'
+        thumb.setAttribute('aria-label', `Open ${media.title || project.title || 'project'} media`)
+
+        if (media.src) {
+          const image = document.createElement('img')
+          image.src = media.src
+          image.alt = media.alt || media.title || project.title || 'Project media'
+          thumb.appendChild(image)
+        }
+
+        const placeholder = document.createElement('span')
+        placeholder.className = 'media-placeholder'
+        placeholder.textContent = media.title || 'Project Media'
+
+        const open = document.createElement('span')
+        open.className = 'media-open'
+        open.setAttribute('aria-hidden', 'true')
+        open.textContent = '↗'
+        thumb.append(placeholder, open)
+
+        const copy = document.createElement('div')
+        copy.className = 'media-copy'
+        const mediaTitle = document.createElement('h4')
+        mediaTitle.textContent = media.title || 'Project media'
+        const mediaDescription = document.createElement('p')
+        mediaDescription.textContent = media.description || ''
+        copy.append(mediaTitle, mediaDescription)
+
+        article.append(thumb, copy)
+        mediaList.appendChild(article)
+      })
+
+      card.appendChild(mediaList)
+    }
+
+    return card
+  }
+
+  const savedProjects = readSavedProjects()
+  if (!savedProjects.length) return
+
+  const existingCards = Array.from(slider.querySelectorAll('.project-card'))
+  savedProjects.forEach((project, offset) => {
+    slider.appendChild(createProjectCard(project, existingCards.length + offset))
+  })
+
+  Array.from(slider.querySelectorAll('.project-card')).forEach((card, index) => {
+    card.style.setProperty('--position', index + 1)
+    const number = card.querySelector('.project-number')
+    if (number) number.textContent = String(index + 1).padStart(2, '0')
+  })
+  slider.style.setProperty('--quantity', slider.querySelectorAll('.project-card').length)
+})();
+
 /* ── CAROUSEL ANIMATION PAUSE ON HOVER & CENTER CARD ──── */
 const carouselSlider = document.querySelector('#projects-grid .projects-slider')
 
@@ -570,6 +738,16 @@ if (carouselSlider) {
   let isAutoRunning = true
   let hoverSettleTimer = null
   let centerCompleteTimer = null
+  let delayedOpenTimer = null
+
+  projectCards
+    .filter(card => card.classList.contains('media-project-card'))
+    .forEach(card => {
+      card.style.setProperty('cursor', 'pointer', 'important')
+      card.querySelectorAll('*').forEach(child => {
+        child.style.setProperty('cursor', 'pointer', 'important')
+      })
+    })
 
   carouselSlider.style.setProperty('--carousel-start-rotation', `${autoStartRotation}deg`)
 
@@ -579,6 +757,7 @@ if (carouselSlider) {
   const clearInteractionTimers = () => {
     clearTimeout(hoverSettleTimer)
     clearTimeout(centerCompleteTimer)
+    clearTimeout(delayedOpenTimer)
   }
 
   const removeSettledHover = () => {
@@ -636,6 +815,7 @@ if (carouselSlider) {
 
   const closeProjectModal = () => {
     projectModal?.classList.remove('open')
+    projectModal?.classList.remove('media-mode')
     projectModal?.setAttribute('aria-hidden', 'true')
     document.body.classList.remove('project-modal-open')
   }
@@ -646,13 +826,24 @@ if (carouselSlider) {
     const number = card.querySelector('.project-number')?.textContent?.trim() || ''
     const title = card.querySelector('.project-title')?.textContent?.trim() || 'Project'
     const shortDesc = card.querySelector('.project-desc')?.textContent?.trim() || ''
+    const detailCopy = card.querySelector('.project-long-copy')
+    const mediaList = card.querySelector('.project-media-list')
     const longDesc = card.dataset.projectLong || shortDesc
     const tags = Array.from(card.querySelectorAll('.project-tags .tag'))
     const shotLabels = ['Overview', 'Build Notes', 'Result']
 
+    projectModal.classList.toggle('media-mode', Boolean(mediaList))
     if (projectModalNumber) projectModalNumber.textContent = number ? `project ${number}` : 'project'
-    if (projectModalTitle) projectModalTitle.textContent = title
-    if (projectModalDesc) projectModalDesc.textContent = longDesc
+    if (projectModalTitle) projectModalTitle.textContent = mediaList ? 'Media' : title
+    if (projectModalDesc) {
+      if (mediaList) {
+        projectModalDesc.textContent = ''
+      } else if (detailCopy) {
+        projectModalDesc.innerHTML = detailCopy.innerHTML
+      } else {
+        projectModalDesc.textContent = longDesc
+      }
+    }
 
     if (projectModalTags) {
       projectModalTags.innerHTML = ''
@@ -661,18 +852,24 @@ if (carouselSlider) {
 
     if (projectModalGallery) {
       projectModalGallery.innerHTML = ''
-      shotLabels.forEach((label, index) => {
-        const shot = document.createElement('div')
-        const shotTitle = document.createElement('span')
-        const shotMeta = document.createElement('em')
+      if (mediaList) {
+        const mediaClone = mediaList.cloneNode(true)
+        mediaClone.hidden = false
+        projectModalGallery.appendChild(mediaClone)
+      } else {
+        shotLabels.forEach((label, index) => {
+          const shot = document.createElement('div')
+          const shotTitle = document.createElement('span')
+          const shotMeta = document.createElement('em')
 
-        shot.className = 'project-shot'
-        shot.style.setProperty('--shot-index', index)
-        shotTitle.textContent = label
-        shotMeta.textContent = title
-        shot.append(shotTitle, shotMeta)
-        projectModalGallery.appendChild(shot)
-      })
+          shot.className = 'project-shot'
+          shot.style.setProperty('--shot-index', index)
+          shotTitle.textContent = label
+          shotMeta.textContent = title
+          shot.append(shotTitle, shotMeta)
+          projectModalGallery.appendChild(shot)
+        })
+      }
     }
 
     projectModal.classList.add('open')
@@ -778,6 +975,12 @@ if (carouselSlider) {
         return
       }
 
+      if (card.classList.contains('media-project-card')) {
+        centerCard(card, true)
+        openProjectModal(card)
+        return
+      }
+
       if (card.classList.contains('active') && carouselSlider.classList.contains('is-hover-ready')) {
         openProjectModal(card)
       } else {
@@ -785,6 +988,28 @@ if (carouselSlider) {
       }
     })
   })
+
+  document.addEventListener('click', (event) => {
+    if (mobileCarouselQuery.matches) return
+    if (projectModal?.classList.contains('open')) return
+    if (event.target.closest('[data-project-nav], .project-link, #project-modal')) return
+
+    const mediaCard = projectCards.find(card => card.classList.contains('media-project-card'))
+    if (!mediaCard?.classList.contains('active')) return
+
+    const rect = mediaCard.getBoundingClientRect()
+    const clickIsInsideMediaCard =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom
+
+    if (!clickIsInsideMediaCard) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    openProjectModal(mediaCard)
+  }, true)
 
   projectNavButtons.forEach(button => {
     button.addEventListener('click', (event) => {
