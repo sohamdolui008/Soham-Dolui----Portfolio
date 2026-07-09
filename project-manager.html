@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Manager - Soham Dolui</title>
+  <meta name="theme-color" content="#060A12">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="project-manager-page">
+  <main class="manager-shell">
+    <section class="manager-panel">
+      <div class="manager-heading">
+        <p class="section-tag">Project Studio</p>
+        <h1>Add portfolio projects</h1>
+        <p>Fill this like a LinkedIn achievement. It saves to this browser and appears in your portfolio carousel.</p>
+      </div>
+
+      <form id="project-form" class="project-form">
+        <label>
+          <span>Project title</span>
+          <input id="project-title-input" name="title" type="text" placeholder="Autonomous Line Follower" required>
+        </label>
+
+        <label>
+          <span>Short card description</span>
+          <textarea id="project-description-input" name="description" rows="3" placeholder="One or two punchy sentences for the project card." required></textarea>
+        </label>
+
+        <label>
+          <span>Popup story</span>
+          <textarea id="project-long-input" name="longDescription" rows="7" placeholder="Problem, decisions, build process, result, metrics, and what made it interesting. Blank lines become separate paragraphs."></textarea>
+        </label>
+
+        <label>
+          <span>Tags</span>
+          <input id="project-tags-input" name="tags" type="text" placeholder="Robotics, Arduino, Sensors, C++">
+        </label>
+
+        <label>
+          <span>Highlights</span>
+          <textarea id="project-highlights-input" name="highlights" rows="4" placeholder="One highlight per line: Built PID control loop&#10;Reduced sensor noise with calibration"></textarea>
+        </label>
+
+        <div class="manager-grid">
+          <label>
+            <span>Live link</span>
+            <input id="project-live-input" name="live" type="url" placeholder="https://...">
+          </label>
+          <label>
+            <span>GitHub link</span>
+            <input id="project-github-input" name="github" type="url" placeholder="https://github.com/...">
+          </label>
+        </div>
+
+        <div class="media-builder">
+          <div class="media-builder-head">
+            <h2>Media</h2>
+            <button type="button" class="manager-button ghost" id="add-media-row">Add media</button>
+          </div>
+          <div id="media-rows"></div>
+        </div>
+
+        <div class="manager-actions">
+          <button type="submit" class="manager-button primary">Save project</button>
+          <button type="button" class="manager-button ghost" id="reset-form">Reset form</button>
+          <a class="manager-button ghost" href="./index.html#projects">View portfolio</a>
+        </div>
+      </form>
+    </section>
+
+    <aside class="manager-panel saved-projects-panel">
+      <div class="manager-heading compact">
+        <p class="section-tag">Saved</p>
+        <h2>Your added projects</h2>
+      </div>
+      <div id="saved-projects-list" class="saved-projects-list"></div>
+      <div class="manager-actions stack">
+        <button type="button" class="manager-button ghost" id="export-projects">Export JSON</button>
+        <label class="manager-button ghost import-button">
+          Import JSON
+          <input id="import-projects" type="file" accept="application/json">
+        </label>
+        <button type="button" class="manager-button danger" id="clear-projects">Clear saved projects</button>
+      </div>
+    </aside>
+  </main>
+
+  <template id="media-row-template">
+    <article class="manager-media-row">
+      <label>
+        <span>Media title</span>
+        <input name="mediaTitle" type="text" placeholder="Prototype test run">
+      </label>
+      <label>
+        <span>Description</span>
+        <textarea name="mediaDescription" rows="3" placeholder="What this image/video shows."></textarea>
+      </label>
+      <div class="manager-grid">
+        <label>
+          <span>Thumbnail file</span>
+          <input name="mediaFile" type="file" accept="image/*">
+        </label>
+        <label>
+          <span>Or thumbnail path</span>
+          <input name="mediaSrc" type="text" placeholder="./Images/project/photo.jpg">
+        </label>
+      </div>
+      <label>
+        <span>Open link</span>
+        <input name="mediaHref" type="url" placeholder="https://youtube.com/...">
+      </label>
+      <button type="button" class="manager-button ghost remove-media-row">Remove media</button>
+    </article>
+  </template>
+
+  <script src="project-manager.js"></script>
+</body>
+</html>

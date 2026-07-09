@@ -660,6 +660,26 @@ section h2 {
     translateZ(350px)
     scale(1.05);
 }
+.project-manager-link {
+  display: inline-flex;
+  align-items: center;
+  margin: -28px 0 28px;
+  padding: 10px 14px;
+  border: 1px solid rgba(42,109,217,0.34);
+  background: rgba(42,109,217,0.08);
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  transition: border-color 0.24s ease, color 0.24s ease, background 0.24s ease, transform 0.2s ease;
+}
+.project-manager-link:hover {
+  border-color: var(--accent-green);
+  background: rgba(29,158,117,0.08);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
 .media-project-card {
   overflow: hidden;
 }
@@ -1161,6 +1181,220 @@ body.project-modal-open {
   transform: translateY(0);
 }
 
+/* ── PROJECT MANAGER ─────────────────────────────────── */
+.project-manager-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(42,109,217,0.16), transparent 32%),
+    radial-gradient(circle at 90% 10%, rgba(29,158,117,0.12), transparent 34%),
+    var(--bg-primary);
+}
+.manager-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 46px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 22px;
+  align-items: start;
+}
+.manager-panel {
+  border: 1px solid rgba(26,47,74,0.86);
+  background: rgba(13,21,36,0.78);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.24);
+  backdrop-filter: blur(16px);
+  padding: 28px;
+}
+.manager-heading {
+  margin-bottom: 28px;
+}
+.manager-heading.compact {
+  margin-bottom: 18px;
+}
+.manager-heading h1,
+.manager-heading h2 {
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.08;
+}
+.manager-heading h2 {
+  font-size: 1.35rem;
+}
+.manager-heading p:not(.section-tag) {
+  max-width: 650px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.project-form {
+  display: grid;
+  gap: 18px;
+}
+.project-form label,
+.manager-media-row label {
+  display: grid;
+  gap: 8px;
+}
+.project-form label span,
+.manager-media-row label span {
+  color: var(--text-muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.project-form input,
+.project-form textarea,
+.manager-media-row input,
+.manager-media-row textarea {
+  width: 100%;
+  border: 1px solid rgba(26,47,74,0.9);
+  background: rgba(6,10,18,0.72);
+  color: var(--text-primary);
+  font: 0.9rem/1.6 'Montserrat', sans-serif;
+  padding: 12px 13px;
+  outline: none;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.project-form textarea,
+.manager-media-row textarea {
+  resize: vertical;
+}
+.project-form input:focus,
+.project-form textarea:focus,
+.manager-media-row input:focus,
+.manager-media-row textarea:focus {
+  border-color: rgba(42,109,217,0.72);
+  box-shadow: 0 0 0 3px rgba(42,109,217,0.12);
+}
+.manager-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.media-builder {
+  margin-top: 4px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(26,47,74,0.86);
+}
+.media-builder-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.media-builder-head h2 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#media-rows {
+  display: grid;
+  gap: 14px;
+}
+.manager-media-row {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(26,47,74,0.86);
+  background: rgba(6,10,18,0.38);
+}
+.manager-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.manager-actions.stack {
+  flex-direction: column;
+  align-items: stretch;
+}
+.manager-button,
+.manager-icon-button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(26,47,74,0.9);
+  background: rgba(6,10,18,0.68);
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: border-color 0.22s ease, background 0.22s ease, color 0.22s ease, transform 0.18s ease;
+}
+.manager-button:hover,
+.manager-icon-button:hover {
+  border-color: var(--accent-blue);
+  background: rgba(42,109,217,0.12);
+  transform: translateY(-1px);
+}
+.manager-button.primary {
+  border-color: rgba(42,109,217,0.85);
+  background: var(--accent-blue);
+}
+.manager-button.danger {
+  color: #ffb5b5;
+  border-color: rgba(255,120,120,0.28);
+}
+.manager-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+.import-button {
+  position: relative;
+  overflow: hidden;
+}
+.import-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.saved-projects-panel {
+  position: sticky;
+  top: 24px;
+}
+.saved-projects-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.saved-project-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid rgba(26,47,74,0.86);
+  background: rgba(6,10,18,0.44);
+}
+.saved-project-item h3 {
+  margin-bottom: 5px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+.saved-project-item p,
+.manager-empty {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+.manager-icon-button {
+  min-height: 32px;
+  align-self: start;
+  padding: 0 10px;
+  color: #ffb5b5;
+}
+
 #contact { background: var(--bg-secondary); text-align: center; }
 #contact .section-tag { text-align: center; }
 #contact-emoji {
@@ -1643,6 +1877,31 @@ footer p {
   .project-nav-btn {
     width: 42px;
     height: 42px;
+  }
+  .project-manager-link {
+    margin: -14px 0 22px;
+  }
+
+  .manager-shell {
+    width: min(100% - 28px, 620px);
+    grid-template-columns: 1fr;
+    padding: 22px 0;
+  }
+  .manager-panel {
+    padding: 20px;
+  }
+  .manager-grid {
+    grid-template-columns: 1fr;
+  }
+  .saved-projects-panel {
+    position: static;
+  }
+  .manager-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .manager-button {
+    width: 100%;
   }
 
   #project-modal {
