@@ -315,7 +315,7 @@ pcNoteClose?.addEventListener('click', () => {
   pcExperienceNote?.classList.add('is-hidden')
 })
 
-const roles   = ['Engineer.', 'Builder.', 'Frontend Dev.', 'ML Enthusiast.', 'IIT KGP EP \'30.']
+const roles   = ['Engineer.', 'Builder.', 'Frontend Dev.', 'ML Enthusiast.', 'IIT R ME \'30.']
 let roleIdx   = 0
 let charIdx   = 0
 let deleting  = false
